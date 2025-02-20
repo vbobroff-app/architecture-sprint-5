@@ -7,6 +7,10 @@ stories:
       - action: utter_greet
       - intent: ask_architecture
       - action: utter_architecture_response
+      - intent: ask_microservices_architecture
+      - action: utter_msa_response
+      - intent: ask_microservice
+      - action: utter_microservice_response
 
   - story: goodbye
     steps:
