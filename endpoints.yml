@@ -40,3 +40,11 @@
 #  username: username
 #  password: password
 #  queue: queue
+
+logger:
+  level: DEBUG
+
+event_broker:
+  type: file
+  path: "rasa.log"
+
