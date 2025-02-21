@@ -16,6 +16,16 @@ rules:
       - intent: ask_architecture
       - action: utter_architecture_response
 
+  - rule: Answer msa questions
+    steps:
+      - intent: ask_microservices_architecture
+      - action: utter_msa_response
+
+  - rule: Answer microservice questions
+    steps:
+      - intent: ask_microservice
+      - action: utter_microservice_response      
+
   - rule: Request additional information
     steps:
       - intent: request_info

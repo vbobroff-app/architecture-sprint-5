@@ -10,9 +10,14 @@ assistant_id: 20250220-113543-aged-circle
 # https://rasa.com/docs/rasa/nlu/components/
 language: ru
 
+log_level: DEBUG
+log_config: "logging.conf"
+
 pipeline:
 - name: WhitespaceTokenizer                # Токенизатор, разделяющий текст по пробелам
-- name: RegexFeaturizer                    # Извлечение признаков с помощью регулярных выражений
+- name: RegexFeaturizer                    # Извлечение признаков с помощью регулярных выражени
+  case_sensitive: False
+  use_word_boundaries: True
 - name: LexicalSyntacticFeaturizer         # Лексико-синтаксический анализатор
 - name: CountVectorsFeaturizer             # Извлечение признаков по частоте слов
   analyzer: "char_wb"                      # Символьные N-граммы
@@ -26,11 +31,21 @@ pipeline:
   cache_dir: null
 
 - name: DIETClassifier                      # Классификатор на базе DIET
-  epochs: 1                                 # Минимальное количество эпох обучения
+  epochs: 50                                # Минимальное количество эпох обучения
+  batch_strategy: "sequence"
+  similarity_type: "inner"
+  maximum_positive_similarity: 0.9
+  maximum_negative_similarity: 0
+  constrain_similarities: true
+  model_confidence: "softmax"
+  ranking_length: 3
+  entity_recognition: False
+  evaluate_every_number_of_epochs: -1
+  use_masked_language_model: true
   transformer_size: 32                      # Минимальный размер слоя трансформера
   number_of_transformer_layers: 1           # Один слой трансформера
-  use_masked_language_model: false          # Отключено для ускорения
-  batch_strategy: "balanced"
+  # use_masked_language_model: false          # Отключено для ускорения
+  # batch_strategy: "balanced"
   hidden_layers_sizes:
     text: [32]                              # Минимальные скрытые слои
 
